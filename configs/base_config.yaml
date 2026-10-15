@@ -1,0 +1,31 @@
+project:
+  name: "favorita-demand-forecast"
+  seed: 42
+  timezone: "America/Guayaquil"
+
+data:
+  raw_dir: "data/raw"
+  processed_dir: "data/processed"
+  sample_dir: "data/sample"
+  train_file: "train.csv"
+  test_file: "test.csv"
+  stores_file: "stores.csv"
+  items_file: "items.csv"
+  oil_file: "oil.csv"
+  holidays_file: "holidays_events.csv"
+  transactions_file: "transactions.csv"
+
+forecast:
+  horizon_days: 16
+  forecast_level: ["store_nbr", "family"]  # Hierarchical grouping
+  target_col: "unit_sales"
+  date_col: "date"
+
+inventory:
+  lead_time_days: 3
+  review_period_days: 1
+  service_level_target: 0.95
+  holding_cost_rate: 0.20 # Annual fraction of unit cost
+  stockout_penalty_multiplier: 2.5
+  perishable_spoilage_rate_daily: 0.05
+  simulation_mc_paths: 1000

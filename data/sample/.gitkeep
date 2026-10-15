@@ -1,0 +1,2 @@
+# This file keeps the data/sample/ directory tracked in git.
+# Place small CSV/Parquet samples here for CI testing.

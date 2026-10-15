@@ -1,0 +1,19 @@
+services:
+  forecast-api:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.api
+    container_name: favorita-forecast-api
+    ports:
+      - "8000:8000"
+    volumes:
+      - ../data:/app/data:ro
+      - ../configs:/app/configs:ro
+    environment:
+      - PYTHONUNBUFFERED=1
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3

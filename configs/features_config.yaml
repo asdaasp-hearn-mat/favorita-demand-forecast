@@ -1,0 +1,37 @@
+# ===========================================================================
+# Feature Engineering Configuration
+# ===========================================================================
+# Controls which feature groups are built and their hyperparameters.
+# Loaded by src/features/ modules via PyYAML.
+
+temporal:
+  date_col: "date"
+  cyclical_encoding: true
+  economic_calendar: true  # Ecuadorian payday indicators
+
+holidays:
+  enabled: true
+  proximity_window_days: 3
+  # Scope levels: "National", "Regional", "Local"
+  scopes: ["National", "Regional"]
+
+oil:
+  enabled: true
+  lag_days: [1, 7, 14]
+  rolling_windows: [7, 14, 28]
+
+lag_features:
+  target_col: "unit_sales"
+  group_keys: ["store_nbr", "family"]
+  forecast_horizon: 16  # Minimum safe lag (days)
+  lag_days: [16, 17, 18, 21, 28, 42, 56]
+  rolling_windows: [7, 14, 28, 56]
+  rolling_statistics: ["mean", "std", "median"]
+  expanding_mean: true
+  diff_features:
+    week_over_week: true
+    month_over_month: true
+  promotion_lags:
+    enabled: true
+    promo_col: "onpromotion"
+    lag_offsets: [16, 21, 28]

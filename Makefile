@@ -38,6 +38,9 @@ train: ## Train hierarchical LightGBM & CatBoost models on processed data
 optimize: ## Run Monte Carlo stochastic (s, S) inventory optimization simulation
 	$(RUN) python -m src.optimization.simulation --config configs/base_config.yaml
 
+notebooks: ## Execute analytical notebooks and embed static PNG charts for GitHub viewer
+	$(UV) run --with nbclient --with nbformat --with ipykernel --with kaleido python scripts/execute_notebooks.py
+
 serve: ## Launch the FastAPI production service for real-time inference
 	$(RUN) uvicorn src.api.main:app --host 0.0.0.0 --port 8000 --reload
 

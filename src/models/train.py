@@ -235,6 +235,11 @@ def train_pipeline(config_path: str | Path = "configs/model_config.yaml") -> dic
             json.dump(importances, f, indent=2)
         logger.info("Saved feature importance rankings to %s", imp_path)
 
+        feat_cols_path = output_dir / "feature_cols.json"
+        with open(feat_cols_path, "w", encoding="utf-8") as f:
+            json.dump(feature_cols, f, indent=2)
+        logger.info("Saved feature column list to %s", feat_cols_path)
+
     metrics_path = output_dir / "training_metrics.json"
     results = {
         "mean_nwrmsle": round(mean_score, 4),

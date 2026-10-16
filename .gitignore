@@ -58,8 +58,8 @@ data/processed/*.csv
 *.pkl
 *.joblib
 *.cbm
-*.lgb
-models/
+/models/
+!src/models/
 
 # ──────────────────────────────────────────────────────────────
 # Jupyter

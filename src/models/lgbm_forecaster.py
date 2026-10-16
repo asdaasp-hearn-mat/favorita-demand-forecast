@@ -53,14 +53,17 @@ def lgb_nwrmsle_eval(
     tuple[str, float, bool]
         ('nwrmsle', error_value, is_higher_better=False)
     """
-    labels = dataset.get_label()
-    weights = dataset.get_weight()
+    labels_arr: np.ndarray = np.asarray(dataset.get_label(), dtype=np.float64)
+    raw_weights = dataset.get_weight()
+    weights_arr: np.ndarray | None = (
+        np.asarray(raw_weights, dtype=np.float64) if raw_weights is not None else None
+    )
 
     # Reconstruct original units: y = exp(z) - 1
-    y_true = np.expm1(np.clip(labels, a_min=0.0, a_max=None))
+    y_true = np.expm1(np.clip(labels_arr, a_min=0.0, a_max=None))
     y_pred = np.expm1(np.clip(preds, a_min=0.0, a_max=None))
 
-    score = nwrmsle_numpy(y_true=y_true, y_pred=y_pred, weights=weights, clip_negative=True)
+    score = nwrmsle_numpy(y_true=y_true, y_pred=y_pred, weights=weights_arr, clip_negative=True)
     return "nwrmsle", float(score), False
 
 
